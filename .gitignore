@@ -1,4 +1,17 @@
 /nvpro_core/
+/bin_x64/
+vk_raytracing/nvpro_core/
+vk_raytracing/CMakeFiles/
+*.cmake
+.vs/
+
+# autogen
+vk_raytracing/CMakeCache.txt
+vk_raytracing/vk_path_tracer/CMakeFiles/generate.stamp
+vk_raytracing/vk_path_tracer/CMakeFiles/generate.stamp.depend
+vk_raytracing/vk_path_tracer/log_vk_path_tracer.txt
+
+
 **/spv/*.spv
 vk_raytracing/build/*
 vk_raytracing/out/build/x64-Debug
@@ -169,6 +182,3 @@ cmake_built
 
 #Omniverse
 OV/downloaded
-
-
-_autogen/
