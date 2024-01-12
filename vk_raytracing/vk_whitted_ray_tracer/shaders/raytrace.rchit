@@ -80,7 +80,7 @@ void main()
 
 
   //compute Diffuse
-  vec3 diffuse = texColor*computeDiffuse(mat, L, worldNrm);
+  vec3 diffuse = texColor.xyz*computeDiffuse(mat, L, worldNrm);
 
   vec3  specular    = vec3(0);
   float attenuation = 1;
