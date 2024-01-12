@@ -51,6 +51,7 @@ vk_raytracing/.vs
 *.ilk
 *.meta
 *.obj
+!vk_raytracing/media/scenes/*.obj
 *.pch
 *.pdb
 *.pgc
