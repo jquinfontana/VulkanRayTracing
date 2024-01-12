@@ -15,6 +15,6 @@ Ejecutar comando `cmake .` en el directorio `vk_raytracing`.
 con los shaders correspondientes y el archivo `CMakeList` (el cual se puede reutilizar de otro proyecto sin realizarle cambios). 
 
 * En el archivo `vk_raytracing/CMakeList.txt`, en la sección **Sub examples** agregar la linea:
-`add_subdirectory(nombre_directorio)` donde nombre_directorio es el nombre del directorio que hemos creado para nuetsro nuevo proyecto.
+`add_subdirectory(nombre_directorio)` donde `nombre_directorio` es el nombre del directorio que hemos creado para nuetsro nuevo proyecto.
 
 * Ejecutar cmake en el directorio `vk_raytracing`.
