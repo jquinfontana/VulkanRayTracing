@@ -1,9 +1,11 @@
 # Generar solución Visual Studio:
 Requisitos:
 
-*Instalar Vulkan SDK (a partir de la versión 1.2.162.0 hay soporte para ray tracing)
+* Instalar Vulkan SDK (a partir de la versión 1.2.162.0 hay soporte para ray tracing)
+
 **Vulkan SDK**: https://vulkan.lunarg.com/sdk/home
-*Instalar Cmake (minima versión requerida: 3.9.6).
+
+* Instalar Cmake (minima versión requerida: 3.9.6).
 
 Ejecutar comando "cmake ." en el directorio vk_raytracing.
 
