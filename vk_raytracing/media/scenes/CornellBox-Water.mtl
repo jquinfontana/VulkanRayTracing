@@ -19,7 +19,7 @@ newmtl leftSphere
 newmtl rightSphere
     Ka 0.01 0.01 0.01
     Kd 0.01 0.01 0.01
-    Ks 0.30 0.30 0.30
+    Ks 0.90 0.90 0.90
     Tf 0.10 0.10 0.10
     Ns 200
     Ni 2.5
@@ -79,8 +79,8 @@ newmtl light
 newmtl water
 	 Ka 0.01 0.01 0.01
     Kd 0.01 0.01 0.01
-    Ks 0.30 0.30 0.30
+    Ks 0.90 0.90 0.90
     Tf 0.10 0.10 0.10
     Ns 200
-    Ni 1.33
+    Ni 2.5
     illum 7

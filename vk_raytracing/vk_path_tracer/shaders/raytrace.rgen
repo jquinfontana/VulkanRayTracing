@@ -48,7 +48,7 @@ void main()
       vec2       d           = inUV * 2.0 - 1.0;
 
       //defocus blur
-      float Aperture = 0.08;
+      float Aperture = 0.045;
       float focus_dist = 3;
       vec2 offset = (Aperture/2) * RandomInUnitDisk(prd.RandomSeed);
       vec4 origin    = uni.viewInverse * vec4(offset, 0, 1);
