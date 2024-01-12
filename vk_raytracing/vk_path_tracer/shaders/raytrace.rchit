@@ -30,8 +30,7 @@ layout(push_constant) uniform _PushConstantRay { PushConstantRay pcRay; };
 // clang-format on
 
 
-void main()
-{
+void main() {
   // Object data
   ObjDesc    objResource = objDesc.i[gl_InstanceCustomIndexEXT];
   MatIndices matIndices  = MatIndices(objResource.materialIndexAddress);
@@ -56,87 +55,73 @@ void main()
   float lightIntensity = pcRay.lightIntensity;
   float lightDistance  = 100000.0;
   // Point light
-  if(pcRay.lightType == 0)
-  {
+  if(pcRay.lightType == 0) {
     vec3 lDir      = pcRay.lightPosition - worldPos;
     lightDistance  = length(lDir);
     lightIntensity = pcRay.lightIntensity / (lightDistance * lightDistance);
     L              = normalize(lDir);
   }
-  else  // Directional light
-  {
+  // Directional light
+  else {
     L = normalize(pcRay.lightPosition);
   }
   // Material of the object
   int               matIdx = matIndices.i[gl_PrimitiveID];
   WaveFrontMaterial mat    = materials.m[matIdx];
+  // Texture
+  vec4 texColor = vec4(1);
+  if(mat.textureId >= 0) {
+	uint txtId    = mat.textureId + objDesc.i[gl_InstanceCustomIndexEXT].txtOffset;
+	vec2 texCoord = v0.texCoord * barycentrics.x + v1.texCoord * barycentrics.y + v2.texCoord * barycentrics.z;
+	texColor = texture(textureSamplers[nonuniformEXT(txtId)], texCoord);
+  }
 
 
-     
 
 
 
 
-
-  //cambiar por un switch case
-  if(mat.emission.x > 0) {
+  if(length(mat.emission) > 0) {
     prd.hitValue = 3*mat.emission;
     prd.done = 1;
 
-  } else if (mat.illum == 5) { //metal
-    //const bool isScattered = dot(reflected, normal) > 0;
-    vec4 texColor = vec4(1);
-    if(mat.textureId >= 0) {
-      uint txtId    = mat.textureId + objDesc.i[gl_InstanceCustomIndexEXT].txtOffset;
-      vec2 texCoord = v0.texCoord * barycentrics.x + v1.texCoord * barycentrics.y + v2.texCoord * barycentrics.z;
-      texColor = texture(textureSamplers[nonuniformEXT(txtId)], texCoord);
-    }
-	  prd.hitValue = mat.specular * texColor.rgb;
-    prd.done = 0;//isScattered ? 1 : 0;
-    prd.rayDir = reflect(prd.rayDir, worldNrm) + 0.0*RandomInUnitSphere(prd.RandomSeed); // agregar fuzzy material: scatter = reflected + m.Fuzziness*RandomInUnitSphere(seed)
-    prd.rayOrigin = worldPos;
-
-  } else if (mat.illum == 7) { //dialectric
-    vec4 texColor = vec4(1);
-    if(mat.textureId >= 0) {
-      uint txtId    = mat.textureId + objDesc.i[gl_InstanceCustomIndexEXT].txtOffset;
-      vec2 texCoord = v0.texCoord * barycentrics.x + v1.texCoord * barycentrics.y + v2.texCoord * barycentrics.z;
-      texColor = texture(textureSamplers[nonuniformEXT(txtId)], texCoord);
-    }
-    const float dot = dot(prd.rayDir, worldNrm);
-    const vec3 outwardNormal = dot > 0 ? -worldNrm : worldNrm;
-    const float niOverNt = dot > 0 ? mat.ior : 1 / mat.ior;
-    const float cosine = dot > 0 ? mat.ior * dot : -dot;
-    const vec3 refracted = refract(prd.rayDir, outwardNormal, niOverNt);
-    const float reflectProb = refracted != vec3(0) ? Schlick(cosine, mat.ior) : 1; //total internal refraction
-    prd.hitValue = mat.specular * texColor.rgb;
-    prd.done = 0;//isScattered ? 1 : 0;
-    prd.rayDir = rnd(prd.RandomSeed) < reflectProb
-      ? reflect(prd.rayDir, worldNrm)
-      : refracted;
-    prd.rayOrigin = worldPos;
-
-  } else { //lambertian
-    //const bool isScattered = dot(prd.rayDir, worldNrm) < 0;
-    vec4 texColor = vec4(1);
-    if(mat.textureId >= 0) {
-      uint txtId    = mat.textureId + objDesc.i[gl_InstanceCustomIndexEXT].txtOffset;
-      vec2 texCoord = v0.texCoord * barycentrics.x + v1.texCoord * barycentrics.y + v2.texCoord * barycentrics.z;
-      texColor = texture(textureSamplers[nonuniformEXT(txtId)], texCoord);
-    }
-    prd.hitValue = mat.diffuse.rgb * texColor.rgb;
-    prd.done = 0;//isScattered ? 1 : 0;
-    //prd.rayDir = worldNrm + RandomInUnitSphere(prd.RandomSeed) +  0.1*RandomInUnitSphere(prd.RandomSeed);
-
-    //intento de glossy material con specular
-    float reflectProb = max(max(mat.specular.x, mat.specular.y),  mat.specular.z);
-    prd.rayDir = rnd(prd.RandomSeed) < reflectProb
-      ? reflect(prd.rayDir, worldNrm) + 0.5*RandomInUnitSphere(prd.RandomSeed)
-      : worldNrm + RandomInUnitSphere(prd.RandomSeed);
-
-    prd.rayOrigin = worldPos;
+  } else {
+	float reflectProb;
+	switch (mat.illum) {
+		case 5: //metal
+			prd.hitValue = mat.specular * texColor.rgb;
+			prd.done = 0;//isScattered ? 1 : 0;
+			prd.rayDir = reflect(prd.rayDir, worldNrm) + 0.0*RandomInUnitSphere(prd.RandomSeed); //editar parametro para fuzzy material
+			prd.rayOrigin = worldPos;
+			
+			break;
+		case 7:	//dielectric
+			const float dot = dot(prd.rayDir, worldNrm);
+			const vec3 outwardNormal = dot > 0 ? -worldNrm : worldNrm;
+			const float niOverNt = dot > 0 ? mat.ior : 1 / mat.ior;
+			const float cosine = dot > 0 ? mat.ior * dot : -dot;
+			const vec3 refracted = refract(prd.rayDir, outwardNormal, niOverNt);
+			reflectProb = refracted != vec3(0) ? Schlick(cosine, mat.ior) : 1; //total internal refraction
+			prd.hitValue = mat.specular * texColor.rgb;
+			prd.done = 0;
+			prd.rayDir = rnd(prd.RandomSeed) < reflectProb
+			  ? reflect(prd.rayDir, worldNrm)
+			  : refracted;
+			prd.rayOrigin = worldPos;
+			
+			break;
+		default: //lambetian and glossy (se modula con respecto al coeficiente specular)
+			//const bool isScattered = dot(prd.rayDir, worldNrm) < 0;
+			reflectProb = max(max(mat.specular.x, mat.specular.y),  mat.specular.z);
+			prd.hitValue = mat.diffuse.rgb * texColor.rgb;
+			prd.done = 0;//isScattered ? 1 : 0;
+			prd.rayDir = rnd(prd.RandomSeed) < reflectProb
+			  ? reflect(prd.rayDir, worldNrm) + 0.4*RandomInUnitSphere(prd.RandomSeed)
+			  : worldNrm + RandomInUnitSphere(prd.RandomSeed);
+			prd.rayOrigin = worldPos;
+	}
   }
-
+  //-------Luz direccional
   //   float tMin   = 0.001;
   //   float tMax   = 10000;
   //   vec3  origin = gl_WorldRayOriginEXT + gl_WorldRayDirectionEXT * gl_HitTEXT;
