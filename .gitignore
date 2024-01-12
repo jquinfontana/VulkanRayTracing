@@ -1,4 +1,8 @@
 /nvpro_core/
+**/spv/*.spv
+vk_raytracing/build/*
+vk_raytracing/out/build/x64-Debug
+vk_raytracing/.vs
 
 # External tool builders
 .externalToolBuilders/
