@@ -55,69 +55,65 @@ void main()
   float lightIntensity = pcRay.lightIntensity;
   float lightDistance  = 100000.0;
   // Point light
-  if(pcRay.lightType == 0)
-  {
+  if(pcRay.lightType == 0) {
     vec3 lDir      = pcRay.lightPosition - worldPos;
     lightDistance  = length(lDir);
     lightIntensity = pcRay.lightIntensity / (lightDistance * lightDistance);
     L              = normalize(lDir);
   }
-  else  // Directional light
-  {
+  // Directional light
+  else {
     L = normalize(pcRay.lightPosition);
   }
   // Material of the object
   int               matIdx = matIndices.i[gl_PrimitiveID];
   WaveFrontMaterial mat    = materials.m[matIdx];
-
+  // Texture
+  vec4 texColor = vec4(1);
+  if(mat.textureId >= 0) {
+	uint txtId    = mat.textureId + objDesc.i[gl_InstanceCustomIndexEXT].txtOffset;
+	vec2 texCoord = v0.texCoord * barycentrics.x + v1.texCoord * barycentrics.y + v2.texCoord * barycentrics.z;
+	texColor = texture(textureSamplers[nonuniformEXT(txtId)], texCoord);
+  }
 
 
 
 
   //compute Diffuse
-  vec3 diffuse = computeDiffuse(mat, L, worldNrm);
-  if(mat.textureId >= 0)
-  {
-    uint txtId    = mat.textureId + objDesc.i[gl_InstanceCustomIndexEXT].txtOffset;
-    vec2 texCoord = v0.texCoord * barycentrics.x + v1.texCoord * barycentrics.y + v2.texCoord * barycentrics.z;
-    diffuse *= texture(textureSamplers[nonuniformEXT(txtId)], texCoord).xyz;
-  }
+  vec3 diffuse = texColor*computeDiffuse(mat, L, worldNrm);
 
   vec3  specular    = vec3(0);
   float attenuation = 1;
 
   // Tracing shadow ray only if the light is visible from the surface
-  if(dot(worldNrm, L) > 0)
-  {
-    float tMin   = 0.001;
-    float tMax   = lightDistance;
-    vec3  origin = gl_WorldRayOriginEXT + gl_WorldRayDirectionEXT * gl_HitTEXT;
-    vec3  rayDir = L;
-    uint  flags  = gl_RayFlagsTerminateOnFirstHitEXT | gl_RayFlagsOpaqueEXT | gl_RayFlagsSkipClosestHitShaderEXT;
-    isShadowed   = true;
-    traceRayEXT(topLevelAS,  // acceleration structure
-                flags,       // rayFlags
-                0xFF,        // cullMask
-                0,           // sbtRecordOffset
-                0,           // sbtRecordStride
-                1,           // missIndex
-                origin,      // ray origin
-                tMin,        // ray min range
-                rayDir,      // ray direction
-                tMax,        // ray max range
-                1            // payload (location = 1)
-    );
-
-    if(isShadowed)
-    {
-      attenuation = 0.3;
-    }
-    else
-    {
-      // Specular
-      specular = computeSpecular(mat, gl_WorldRayDirectionEXT, L, worldNrm);
-    }
-  }
+	if(dot(worldNrm, L) > 0) {
+		float tMin   = 0.001;
+		float tMax   = lightDistance;
+		vec3  origin = gl_WorldRayOriginEXT + gl_WorldRayDirectionEXT * gl_HitTEXT;
+		vec3  rayDir = L;
+		uint  flags  = gl_RayFlagsTerminateOnFirstHitEXT | gl_RayFlagsOpaqueEXT | gl_RayFlagsSkipClosestHitShaderEXT;
+		isShadowed   = true;
+		traceRayEXT(
+			topLevelAS,  // acceleration structure
+			flags,       // rayFlags
+			0xFF,        // cullMask
+			0,           // sbtRecordOffset
+			0,           // sbtRecordStride
+			1,           // missIndex
+			origin,      // ray origin
+			tMin,        // ray min range
+			rayDir,      // ray direction
+			tMax,        // ray max range
+			1            // payload (location = 1)
+		);
+		
+		if(isShadowed) {
+			attenuation = 0.3;
+		} else {
+			// Specular
+			specular = computeSpecular(mat, gl_WorldRayDirectionEXT, L, worldNrm);
+		}
+	}
 	
 	// Reflection
 	if(mat.illum >= 3) {
