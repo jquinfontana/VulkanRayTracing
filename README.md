@@ -7,7 +7,9 @@ Requisitos:
 
 **Vulkan SDK**: https://vulkan.lunarg.com/sdk/home
 
-Ejecutar comando `cmake .` en el directorio `vk_raytracing`.
+**Cmake**: https://cmake.org
+
+Ejecutar comando `cmake .` en el directorio `vk_raytracing`. Para esto se recomienda agregar Cmake al path en el momento de la instalación.
 
 # Agregar un nuevo proyecto: 
 
