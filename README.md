@@ -1,3 +1,7 @@
+# Ray Tracing en Vulkan
+
+<img align="center" src="https://github.com/GPSnoopy/RayTracingInVulkan/blob/master/gallery/LucySettings.jpg">
+
 # Generar solución Visual Studio:
 Requisitos:
 
