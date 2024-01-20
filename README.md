@@ -1,6 +1,6 @@
 # Ray Tracing en Vulkan
 
-<img align="center" src="https://github.com/GPSnoopy/RayTracingInVulkan/blob/master/gallery/LucySettings.jpg">
+<img src="https://github.com/jquinfontana/VulkanRayTracing/blob/main/documentos/imagenes%20path%20tracing/water.jpg" width="49%"></img><img src="https://github.com/jquinfontana/VulkanRayTracing/blob/main/documentos/imagenes%20path%20tracing/dragon2.jpg" width="49%"></img>
 
 # Generar solución Visual Studio:
 Requisitos:
