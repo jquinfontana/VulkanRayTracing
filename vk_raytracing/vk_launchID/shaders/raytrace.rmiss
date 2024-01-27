@@ -7,14 +7,13 @@
 #include "raycommon.glsl"
 #include "wavefront.glsl"
 
-layout(location = 0) rayPayloadInEXT hitPayload prd;
+layout(location = 0) rayPayloadInEXT hitPayload ray;
 
 layout(push_constant) uniform _PushConstantRay
 {
   PushConstantRay pcRay;
 };
 
-void main()
-{
-  prd.hitValue = pcRay.clearColor.xyz * 0.8;
+void main() {
+  ray.hitValue = vec3(0);
 }

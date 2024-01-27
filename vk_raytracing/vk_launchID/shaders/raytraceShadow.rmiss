@@ -4,7 +4,6 @@
 
 layout(location = 1) rayPayloadInEXT bool isShadowed;
 
-void main()
-{
+void main() {
   isShadowed = false;
 }

@@ -11,9 +11,7 @@ layout(push_constant) uniform shaderInformation
 }
 pushc;
 
-void main()
-{
+void main() {
   vec2  uv    = outUV;
-  float gamma = 1. / 2.2;
-  fragColor   = pow(texture(noisyTxt, uv).rgba, vec4(gamma));
+  fragColor = texture(noisyTxt, uv).rgba;
 }
