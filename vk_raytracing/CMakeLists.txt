@@ -46,6 +46,7 @@ add_subdirectory(vk_launchID)
 add_subdirectory(vk_primitiveID)
 add_subdirectory(vk_material)
 add_subdirectory(vk_random)
+add_subdirectory(vk_rebotes)
 
 
 #--------------------------------------------------------------------------------------------------
