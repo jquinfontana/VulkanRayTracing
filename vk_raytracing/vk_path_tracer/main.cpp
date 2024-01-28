@@ -32,9 +32,9 @@ static void onErrorCallback(int error, const char* description)
 // Extra UI
 void renderUI(HelloVulkan& helloVk)
 {
-  ImGuiH::CameraWidget();
-  if(ImGui::CollapsingHeader("Light"))
+  if(ImGui::CollapsingHeader("Extra widget"))
   {
+    ImGuiH::CameraWidget();
     ImGui::RadioButton("Point", &helloVk.m_pcRaster.lightType, 0);
     ImGui::SameLine();
     ImGui::RadioButton("Infinite", &helloVk.m_pcRaster.lightType, 1);
@@ -141,6 +141,11 @@ int main(int argc, char** argv)
 
   helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Water.obj", defaultSearchPaths, true));
 
+  //Lego
+  {
+      //helloVk.loadModel(nvh::findFile("media/scenes/cornell-original-water.obj", defaultSearchPaths, true));
+  }
+
   { //cornell bunny
       /*helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Mirror.obj", defaultSearchPaths, true));
       helloVk.loadModel(nvh::findFile("media/scenes/bunny.obj", defaultSearchPaths, true));*/
@@ -193,6 +198,9 @@ int main(int argc, char** argv)
   glm::vec4 clearColor   = glm::vec4(1, 1, 1, 1.00f);
   bool      useRaytracer = true;
 
+  helloVk.m_pcRay.camAperture = 0.001;
+  helloVk.m_pcRay.focusDist = 3;
+
 
   helloVk.setupGlfwCallbacks(window);
   ImGui_ImplGlfw_InitForVulkan(window, true);
@@ -210,15 +218,16 @@ int main(int argc, char** argv)
 
 
     // Show UI window.
-    if(helloVk.showGui())
-    {
+    if(helloVk.showGui()) {
       ImGuiH::Panel::Begin();
-      ImGui::ColorEdit3("Clear color", reinterpret_cast<float*>(&clearColor));
-      ImGui::Checkbox("Ray Tracer mode", &useRaytracer);  // Switch between raster and ray tracing
-
       renderUI(helloVk);
+
+      ImGui::Checkbox("Ray Tracer mode", &useRaytracer);  // Switch between raster and ray tracing
+      ImGui::Checkbox("Ambient Ligth", &helloVk.m_pcRay.ambientLigth); //enable ambient ligth
+      ImGui::SliderFloat("Aperture", &helloVk.m_pcRay.camAperture, 0.001f, 0.5f); //camera parameters
+      ImGui::SliderFloat("Focus distance", &helloVk.m_pcRay.focusDist, 1.f, 20.f);
+
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-      ImGuiH::Control::Info("", "", "(F10) Toggle Pane", ImGuiH::Control::Flags::Disabled);
       ImGuiH::Panel::End();
     }
 

@@ -71,6 +71,9 @@ struct PushConstantRay
   float lightIntensity;
   int   lightType;
   int   frame;
+  float camAperture;
+  float focusDist;
+  bool ambientLigth;
 };
 
 struct Vertex  // See ObjLoader, copy of VertexObj, could be compressed for device

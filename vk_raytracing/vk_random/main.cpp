@@ -136,39 +136,7 @@ int main(int argc, char** argv)
   helloVk.initGUI(0);  // Using sub-pass 0
 
   // Creation of the example
-  
-  //helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Sphere.obj", defaultSearchPaths, true));
-
-  helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Water.obj", defaultSearchPaths, true));
-
-  { //cornell bunny
-      /*helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Mirror.obj", defaultSearchPaths, true));
-      helloVk.loadModel(nvh::findFile("media/scenes/bunny.obj", defaultSearchPaths, true));*/
-  }
-
-  {  //cornell dragon
-      /*helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Empty-CO.obj", defaultSearchPaths, true));
-      helloVk.loadModel(nvh::findFile("media/scenes/dragon.obj", defaultSearchPaths, true),
-                        glm::translate(
-                        glm::rotate(
-                        glm::scale(glm::mat4(1.0f), vec3(1.5,1.5,1.5)), (float)1.5, vec3(0, 1, 0)),vec3(0, 0.5, 0)));*/
-  }
-
-  {  //cornell lucy
-      /*helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Empty-CO.obj", defaultSearchPaths, true));
-    helloVk.loadModel(nvh::findFile("media/scenes/lucy.obj", defaultSearchPaths, true),
-                      glm::scale(glm::rotate(glm::mat4(1.0f), (float)1.5, vec3(0, 1, 0)), vec3(0.0023)));*/
-  }
-
-  //{  //cornell buble
-  //   helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Empty-CO.obj", defaultSearchPaths, true));
-  //   helloVk.loadModel(nvh::findFile("media/scenes/sphere.obj", defaultSearchPaths, true),
-  //                     glm::translate(glm::scale(glm::mat4(1.0f), vec3(0.3)), vec3(0,1.8,0)));
-  //   helloVk.loadModel(nvh::findFile("media/scenes/sphere.obj", defaultSearchPaths, true),
-  //                     glm::translate(glm::scale(glm::mat4(1.0f), vec3(0.3)), vec3(0,1.8,0)));
-  //}
-
-  //helloVk.loadModel(nvh::findFile("media/scenes/sponza.obj", defaultSearchPaths, true));
+  helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Original.obj", defaultSearchPaths, true));
 
   helloVk.createOffscreenRender();
   helloVk.createDescriptorSetLayout();
@@ -210,17 +178,17 @@ int main(int argc, char** argv)
 
 
     // Show UI window.
-    if(helloVk.showGui())
-    {
-      ImGuiH::Panel::Begin();
-      ImGui::ColorEdit3("Clear color", reinterpret_cast<float*>(&clearColor));
-      ImGui::Checkbox("Ray Tracer mode", &useRaytracer);  // Switch between raster and ray tracing
+    //if(helloVk.showGui())
+    //{
+    //  ImGuiH::Panel::Begin();
+    //  ImGui::ColorEdit3("Clear color", reinterpret_cast<float*>(&clearColor));
+    //  ImGui::Checkbox("Ray Tracer mode", &useRaytracer);  // Switch between raster and ray tracing
 
-      renderUI(helloVk);
-      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-      ImGuiH::Control::Info("", "", "(F10) Toggle Pane", ImGuiH::Control::Flags::Disabled);
-      ImGuiH::Panel::End();
-    }
+    //  renderUI(helloVk);
+    //  ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    //  ImGuiH::Control::Info("", "", "(F10) Toggle Pane", ImGuiH::Control::Flags::Disabled);
+    //  ImGuiH::Panel::End();
+    //}
 
     // Start rendering the scene
     helloVk.prepareFrame();

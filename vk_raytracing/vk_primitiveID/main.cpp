@@ -1,27 +1,3 @@
-/*
- * Copyright (c) 2014-2021, NVIDIA CORPORATION.  All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-FileCopyrightText: Copyright (c) 2014-2021 NVIDIA CORPORATION
- * SPDX-License-Identifier: Apache-2.0
- */
-
-
-// ImGui - standalone example application for Glfw + Vulkan, using programmable
-// pipeline If you are new to ImGui, see examples/README.txt and documentation
-// at the top of imgui.cpp.
-
 #include <array>
 
 #define IMGUI_DEFINE_MATH_OPERATORS
@@ -160,10 +136,7 @@ int main(int argc, char** argv)
   helloVk.initGUI(0);  // Using sub-pass 0
 
   // Creation of the example
-  //helloVk.loadModel(nvh::findFile("media/scenes/Medieval_building.obj", defaultSearchPaths, true));
-  //helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Sphere.obj", defaultSearchPaths, true));
-  helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Water.obj", defaultSearchPaths, true));
-  //helloVk.loadModel(nvh::findFile("media/scenes/plane.obj", defaultSearchPaths, true));
+  helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Sphere.obj", defaultSearchPaths, true));
 
   helloVk.createOffscreenRender();
   helloVk.createDescriptorSetLayout();
@@ -205,17 +178,17 @@ int main(int argc, char** argv)
 
 
     // Show UI window.
-    if(helloVk.showGui())
-    {
-      ImGuiH::Panel::Begin();
-      ImGui::ColorEdit3("Clear color", reinterpret_cast<float*>(&clearColor));
-      ImGui::Checkbox("Ray Tracer mode", &useRaytracer);  // Switch between raster and ray tracing
+    //if(helloVk.showGui())
+    //{
+    //  ImGuiH::Panel::Begin();
+    //  ImGui::ColorEdit3("Clear color", reinterpret_cast<float*>(&clearColor));
+    //  ImGui::Checkbox("Ray Tracer mode", &useRaytracer);  // Switch between raster and ray tracing
 
-      renderUI(helloVk);
-      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-      ImGuiH::Control::Info("", "", "(F10) Toggle Pane", ImGuiH::Control::Flags::Disabled);
-      ImGuiH::Panel::End();
-    }
+    //  renderUI(helloVk);
+    //  ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    //  ImGuiH::Control::Info("", "", "(F10) Toggle Pane", ImGuiH::Control::Flags::Disabled);
+    //  ImGuiH::Panel::End();
+    //}
 
     // Start rendering the scene
     helloVk.prepareFrame();

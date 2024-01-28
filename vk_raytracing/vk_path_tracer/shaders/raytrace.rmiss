@@ -18,8 +18,10 @@ void main() {
   //prd.hitValue = pcRay.clearColor.xyz;
 
   //iluminacion ambiental
-  //prd.hitValue = vec3(10);
-
-  prd.hitValue = vec3(0);
+  if(pcRay.ambientLigth){
+    prd.hitValue = vec3(1);
+  } else {
+    prd.hitValue = vec3(0);
+  }
   prd.done = 1;
 }

@@ -31,7 +31,7 @@ layout(push_constant) uniform _PushConstantRay { PushConstantRay pcRay; };
 
 
 void main() {
-  // Object data
+  //Object data-------------------------------------------------------------------------------------------
   ObjDesc    objResource = objDesc.i[gl_InstanceCustomIndexEXT];
   MatIndices matIndices  = MatIndices(objResource.materialIndexAddress);
   Materials  materials   = Materials(objResource.materialAddress);
@@ -75,10 +75,7 @@ void main() {
 	vec2 texCoord = v0.texCoord * barycentrics.x + v1.texCoord * barycentrics.y + v2.texCoord * barycentrics.z;
 	texColor = texture(textureSamplers[nonuniformEXT(txtId)], texCoord);
   }
-
-
-
-
+  //--------------------------------------------------------------------------------------------------------
 
 
   if(length(mat.emission) > 0) {
@@ -86,41 +83,42 @@ void main() {
     prd.done = 1;
 
   } else {
-	float reflectProb;
-	switch (mat.illum) {
-		case 5: //metal
-			prd.hitValue = mat.specular * texColor.rgb;
-			prd.done = 0;//isScattered ? 1 : 0;
-			prd.rayDir = reflect(prd.rayDir, worldNrm) + 0.0*RandomInUnitSphere(prd.RandomSeed); //editar parametro para fuzzy material
-			prd.rayOrigin = worldPos;
-			
-			break;
-		case 7:	//dielectric
-			const float dot = dot(prd.rayDir, worldNrm);
-			const vec3 outwardNormal = dot > 0 ? -worldNrm : worldNrm;
-			const float niOverNt = dot > 0 ? mat.ior : 1 / mat.ior;
-			const float cosine = dot > 0 ? mat.ior * dot : -dot;
-			const vec3 refracted = refract(prd.rayDir, outwardNormal, niOverNt);
-			reflectProb = refracted != vec3(0) ? Schlick(cosine, mat.ior) : 1; //total internal refraction
-			prd.hitValue = mat.specular * texColor.rgb;
-			prd.done = 0;
-			prd.rayDir = rnd(prd.RandomSeed) < reflectProb
-			  ? reflect(prd.rayDir, worldNrm)
-			  : refracted;
-			prd.rayOrigin = worldPos;
-			
-			break;
-		default: //lambetian and glossy (se modula con respecto al coeficiente specular)
-			//const bool isScattered = dot(prd.rayDir, worldNrm) < 0;
-			reflectProb = max(max(mat.specular.x, mat.specular.y),  mat.specular.z);
-			prd.hitValue = mat.diffuse.rgb * texColor.rgb;
-			prd.done = 0;//isScattered ? 1 : 0;
-			prd.rayDir = rnd(prd.RandomSeed) < reflectProb
-			  ? reflect(prd.rayDir, worldNrm) + 0.4*RandomInUnitSphere(prd.RandomSeed)
-			  : worldNrm + RandomInUnitSphere(prd.RandomSeed);
-			prd.rayOrigin = worldPos;
-	}
+	  float reflectProb;
+    switch (mat.illum) {
+    case 5: //metal
+        prd.hitValue = mat.specular * texColor.rgb;
+        prd.done = 0;//isScattered ? 1 : 0;
+        prd.rayDir = reflect(prd.rayDir, worldNrm) + 0.0*RandomInUnitSphere(prd.RandomSeed); //editar parametro para fuzzy material
+        prd.rayOrigin = worldPos;
+        
+        break;
+    case 7:	//dielectric
+        const float dot = dot(prd.rayDir, worldNrm);
+        const vec3 outwardNormal = dot > 0 ? -worldNrm : worldNrm;
+        const float niOverNt = dot > 0 ? mat.ior : 1 / mat.ior;
+        const float cosine = dot > 0 ? mat.ior * dot : -dot;
+        const vec3 refracted = refract(prd.rayDir, outwardNormal, niOverNt);
+        reflectProb = refracted != vec3(0) ? Schlick(cosine, mat.ior) : 1; //total internal refraction
+        prd.hitValue = mat.specular * texColor.rgb;
+        prd.done = 0;
+        prd.rayDir = rnd(prd.RandomSeed) < reflectProb
+          ? reflect(prd.rayDir, worldNrm)
+          : refracted;
+        prd.rayOrigin = worldPos;
+        
+        break;
+    default: //lambetian and glossy (se modula con respecto al coeficiente specular)
+        //const bool isScattered = dot(prd.rayDir, worldNrm) < 0;
+        reflectProb = max(max(mat.specular.x, mat.specular.y),  mat.specular.z);
+        prd.hitValue = mat.diffuse.rgb * texColor.rgb;
+        prd.done = 0;//isScattered ? 1 : 0;
+        prd.rayDir = rnd(prd.RandomSeed) < reflectProb
+          ? reflect(prd.rayDir, worldNrm) + (350/mat.shininess)*RandomInUnitSphere(prd.RandomSeed)
+          : worldNrm + RandomInUnitSphere(prd.RandomSeed);
+        prd.rayOrigin = worldPos;
+    }
   }
+
   //-------Luz direccional
   //   float tMin   = 0.001;
   //   float tMax   = 10000;

@@ -1,23 +1,3 @@
-/*
- * Copyright (c) 2014-2021, NVIDIA CORPORATION.  All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-FileCopyrightText: Copyright (c) 2014-2021 NVIDIA CORPORATION
- * SPDX-License-Identifier: Apache-2.0
- */
-
-
 #include <sstream>
 
 
@@ -733,7 +713,6 @@ void HelloVulkan::createRtPipeline()
   {
     eRaygen,
     eMiss,
-    eMiss2,
     eClosestHit,
     eShaderGroupCount
   };
@@ -750,11 +729,6 @@ void HelloVulkan::createRtPipeline()
   stage.module = nvvk::createShaderModule(m_device, nvh::loadFile("spv/raytrace.rmiss.spv", true, defaultSearchPaths, true));
   stage.stage   = VK_SHADER_STAGE_MISS_BIT_KHR;
   stages[eMiss] = stage;
-  // The second miss shader is invoked when a shadow ray misses the geometry. It simply indicates that no occlusion has been found
-  stage.module =
-      nvvk::createShaderModule(m_device, nvh::loadFile("spv/raytraceShadow.rmiss.spv", true, defaultSearchPaths, true));
-  stage.stage    = VK_SHADER_STAGE_MISS_BIT_KHR;
-  stages[eMiss2] = stage;
   // Hit Group - Closest Hit
   stage.module = nvvk::createShaderModule(m_device, nvh::loadFile("spv/raytrace.rchit.spv", true, defaultSearchPaths, true));
   stage.stage         = VK_SHADER_STAGE_CLOSEST_HIT_BIT_KHR;
@@ -776,11 +750,6 @@ void HelloVulkan::createRtPipeline()
   // Miss
   group.type          = VK_RAY_TRACING_SHADER_GROUP_TYPE_GENERAL_KHR;
   group.generalShader = eMiss;
-  m_rtShaderGroups.push_back(group);
-
-  // Shadow Miss
-  group.type          = VK_RAY_TRACING_SHADER_GROUP_TYPE_GENERAL_KHR;
-  group.generalShader = eMiss2;
   m_rtShaderGroups.push_back(group);
 
   // closest hit shader
@@ -843,7 +812,7 @@ void HelloVulkan::createRtPipeline()
 //
 void HelloVulkan::createRtShaderBindingTable()
 {
-  uint32_t missCount{2};
+  uint32_t missCount{1};
   uint32_t hitCount{1};
   auto     handleCount = 1 + missCount + hitCount;
   uint32_t handleSize  = m_rtProperties.shaderGroupHandleSize;

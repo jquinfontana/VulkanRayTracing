@@ -67,9 +67,16 @@ void main() {
   // Material of the object
   int               matIdx = matIndices.i[gl_PrimitiveID];
   WaveFrontMaterial mat    = materials.m[matIdx];
+  // Texture
+  vec4 texColor = vec4(1);
+  if(mat.textureId >= 0) {
+  uint txtId    = mat.textureId + objDesc.i[gl_InstanceCustomIndexEXT].txtOffset;
+  vec2 texCoord = v0.texCoord * barycentrics.x + v1.texCoord * barycentrics.y + v2.texCoord * barycentrics.z;
+  texColor = texture(textureSamplers[nonuniformEXT(txtId)], texCoord);
+  }
   //--------------------------------------------------------------------------------------------------------
 
 
-  ray.hitValue = computeDiffuse(mat, L, worldNrm);
+  ray.hitValue = computeDiffuse(mat, L, worldNrm)*texColor.rgb;
 
 }

@@ -48,8 +48,8 @@ void main()
       vec2       d           = inUV * 2.0 - 1.0;
 
       //defocus blur
-      float Aperture = 0.045;
-      float focus_dist = 3;
+      float Aperture = pcRay.camAperture;
+      float focus_dist = pcRay.focusDist;
       vec2 offset = (Aperture/2) * RandomInUnitDisk(prd.RandomSeed);
       vec4 origin    = uni.viewInverse * vec4(offset, 0, 1);
       vec4 target    = uni.projInverse * vec4(d.x, d.y, 1, 1);
