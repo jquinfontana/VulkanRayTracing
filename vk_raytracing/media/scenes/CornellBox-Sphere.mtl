@@ -14,7 +14,7 @@
 
 newmtl leftSphere
     Ka 0.01 0.01 0.01
-    Kd 0.01 0.01 0.01
+    Kd 0.91 0.91 0.91
     Ks 0.95 0.95 0.95
     Ns 1024
     illum 5
@@ -22,7 +22,7 @@ newmtl leftSphere
 newmtl rightSphere
     Ka 0.01 0.01 0.01
     Kd 0.01 0.01 0.01
-    Ks 0.30 0.30 0.30
+    Ks 0.90 0.90 0.90
     Tf 0.10 0.10 0.10
     Ns 1024
     Ni 2.5
