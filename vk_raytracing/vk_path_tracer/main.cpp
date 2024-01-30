@@ -139,7 +139,15 @@ int main(int argc, char** argv)
   
   //helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Sphere.obj", defaultSearchPaths, true));
 
-  helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Water.obj", defaultSearchPaths, true));
+  {  //cornell dragon
+      helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Empty-CO.obj", defaultSearchPaths, true));
+      helloVk.loadModel(nvh::findFile("media/scenes/dragon.obj", defaultSearchPaths, true),
+                        glm::translate(
+                        glm::rotate(
+                        glm::scale(glm::mat4(1.0f), vec3(1.5,1.5,1.5)), (float)1.5, vec3(0, 1, 0)),vec3(0, 0.5, 0)));
+  }
+
+  //helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Water.obj", defaultSearchPaths, true));
 
   //Lego
   {
@@ -149,14 +157,6 @@ int main(int argc, char** argv)
   { //cornell bunny
       /*helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Mirror.obj", defaultSearchPaths, true));
       helloVk.loadModel(nvh::findFile("media/scenes/bunny.obj", defaultSearchPaths, true));*/
-  }
-
-  {  //cornell dragon
-      /*helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Empty-CO.obj", defaultSearchPaths, true));
-      helloVk.loadModel(nvh::findFile("media/scenes/dragon.obj", defaultSearchPaths, true),
-                        glm::translate(
-                        glm::rotate(
-                        glm::scale(glm::mat4(1.0f), vec3(1.5,1.5,1.5)), (float)1.5, vec3(0, 1, 0)),vec3(0, 0.5, 0)));*/
   }
 
   {  //cornell lucy
