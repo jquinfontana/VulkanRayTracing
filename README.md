@@ -28,4 +28,5 @@ con los shaders correspondientes y el archivo `CMakeList` (el cual se puede reut
 # Path tracer
 
 Se implementó un path tracer a modo de referencia/demo basado en el libro [Ray Tracing in One Weekend](https://raytracing.github.io/), el cual implementa efectos como: defocus blur, gamma correction, materiales glossy, fresnel effect, gaussian filter antialiasing, etc.
+
 <img src="https://github.com/jquinfontana/VulkanRayTracing/blob/main/documentos/imagenes%20path%20tracing/dragon3.jpg" width="49%"></img> <img src="https://github.com/jquinfontana/VulkanRayTracing/blob/main/documentos/imagenes%20path%20tracing/sponza2.jpg" width="49%"></img> <img src="https://github.com/jquinfontana/VulkanRayTracing/blob/main/documentos/imagenes%20path%20tracing/catedral.jpg" width="49%"></img> <img src="https://github.com/jquinfontana/VulkanRayTracing/blob/main/documentos/imagenes%20path%20tracing/dragon5.jpg" width="49%"></img>
