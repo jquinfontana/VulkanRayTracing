@@ -9,7 +9,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Kd C:/213814d131_baseColor.png
+map_Kd 213814d131_baseColor.png
 
 newmtl 21u9132v1d1u9132v1d1_metal
 Ns 159.999985
@@ -19,7 +19,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Kd C:/21u9132v1d1u9132v1d1_metal_baseColor.png
+map_Kd 21u9132v1d1u9132v1d1_metal_baseColor.png
 
 newmtl 243626av
 Ns 159.999985
@@ -29,7 +29,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Kd C:/243626av_baseColor.png
+map_Kd 243626av_baseColor.png
 
 newmtl 2608d1
 Ns 159.999985
@@ -39,7 +39,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Kd C:/2608d1_baseColor.png
+map_Kd 2608d1_baseColor.png
 
 newmtl 26099d1
 Ns 159.999985
@@ -49,7 +49,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Kd C:/26099d1_baseColor.png
+map_Kd 26099d1_baseColor.png
 
 newmtl material
 Ns 159.999985
