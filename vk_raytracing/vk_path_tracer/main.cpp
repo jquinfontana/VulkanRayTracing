@@ -135,23 +135,29 @@ int main(int argc, char** argv)
   // Setup Imgui
   helloVk.initGUI(0);  // Using sub-pass 0
 
-  // Creation of the example
+  // Creation of the example-----------------------------------------------------------------------------------------------------------------
   
   //helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Sphere.obj", defaultSearchPaths, true));
 
+  {  //Minecraft floor
+      /*helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Sphere.obj", defaultSearchPaths, true));
+      helloVk.loadModel(nvh::findFile("media/scenes/vokselia_spawn.obj", defaultSearchPaths, true),
+                       glm::scale(glm::translate(glm::mat4(1.0f), vec3(0, 0.1, 0.1)), vec3(0.5)));*/
+  }
+
   {  //cornell dragon
-      helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Empty-CO.obj", defaultSearchPaths, true));
+      /*helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Empty-CO.obj", defaultSearchPaths, true));
       helloVk.loadModel(nvh::findFile("media/scenes/dragon.obj", defaultSearchPaths, true),
                         glm::translate(
                         glm::rotate(
-                        glm::scale(glm::mat4(1.0f), vec3(1.5,1.5,1.5)), (float)1.5, vec3(0, 1, 0)),vec3(0, 0.5, 0)));
+                        glm::scale(glm::mat4(1.0f), vec3(1.5,1.5,1.5)), (float)1.5, vec3(0, 1, 0)),vec3(0, 0.5, 0)));*/
   }
 
-  //helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Water.obj", defaultSearchPaths, true));
+  helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Water.obj", defaultSearchPaths, true));
 
   //Lego
   {
-      //helloVk.loadModel(nvh::findFile("media/scenes/cornell-original-water.obj", defaultSearchPaths, true));
+      //helloVk.loadModel(nvh::findFile("media/scenes/lego.obj", defaultSearchPaths, true));
   }
 
   { //cornell bunny
@@ -165,15 +171,38 @@ int main(int argc, char** argv)
                       glm::scale(glm::rotate(glm::mat4(1.0f), (float)1.5, vec3(0, 1, 0)), vec3(0.0023)));*/
   }
 
-  //{  //cornell buble
-  //   helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Empty-CO.obj", defaultSearchPaths, true));
-  //   helloVk.loadModel(nvh::findFile("media/scenes/sphere.obj", defaultSearchPaths, true),
-  //                     glm::translate(glm::scale(glm::mat4(1.0f), vec3(0.3)), vec3(0,1.8,0)));
-  //   helloVk.loadModel(nvh::findFile("media/scenes/sphere.obj", defaultSearchPaths, true),
-  //                     glm::translate(glm::scale(glm::mat4(1.0f), vec3(0.3)), vec3(0,1.8,0)));
-  //}
+  /*helloVk.loadModel(nvh::findFile("media/scenes/sponza.obj", defaultSearchPaths, true));*/
 
-  //helloVk.loadModel(nvh::findFile("media/scenes/sponza.obj", defaultSearchPaths, true));
+  {  //cornell buble
+     /*helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Empty-CO.obj", defaultSearchPaths, true));
+
+     helloVk.loadModel(nvh::findFile("media/scenes/sphere.obj", defaultSearchPaths, true),
+         glm::scale(glm::translate(glm::mat4(1.0f), vec3(0.5, 1.2, -0.5)), vec3(0.4)));
+     helloVk.loadModel(nvh::findFile("media/scenes/SphereInv.obj", defaultSearchPaths, true),
+         glm::scale(glm::translate(glm::mat4(1.0f), vec3(0.5, 1.2, -0.5)), vec3(0.39)));
+
+     helloVk.loadModel(nvh::findFile("media/scenes/sphere.obj", defaultSearchPaths, true),
+         glm::scale(glm::translate(glm::mat4(1.0f), vec3(-0.5, 1.2, 0)), vec3(0.2)));
+     helloVk.loadModel(nvh::findFile("media/scenes/SphereInv.obj", defaultSearchPaths, true),
+         glm::scale(glm::translate(glm::mat4(1.0f), vec3(-0.5, 1.2, 0)), vec3(0.19)));
+
+     helloVk.loadModel(nvh::findFile("media/scenes/sphere.obj", defaultSearchPaths, true),
+         glm::scale(glm::translate(glm::mat4(1.0f), vec3(-0.45, 0.8, -0.1)), vec3(0.1)));
+     helloVk.loadModel(nvh::findFile("media/scenes/SphereInv.obj", defaultSearchPaths, true),
+         glm::scale(glm::translate(glm::mat4(1.0f), vec3(-0.45, 0.8, -0.1)), vec3(0.095)));
+
+     helloVk.loadModel(nvh::findFile("media/scenes/sphere.obj", defaultSearchPaths, true),
+         glm::scale(glm::translate(glm::mat4(1.0f), vec3(0.3, 0.4, 0.2)), vec3(0.3)));
+     helloVk.loadModel(nvh::findFile("media/scenes/SphereInv.obj", defaultSearchPaths, true),
+         glm::scale(glm::translate(glm::mat4(1.0f), vec3(0.3, 0.4, 0.2)), vec3(0.29)));
+
+     helloVk.loadModel(nvh::findFile("media/scenes/sphere.obj", defaultSearchPaths, true),
+         glm::scale(glm::translate(glm::mat4(1.0f), vec3(0.1, 0.55, 0.4)), vec3(0.2)));
+     helloVk.loadModel(nvh::findFile("media/scenes/SphereInv.obj", defaultSearchPaths, true),
+         glm::scale(glm::translate(glm::mat4(1.0f), vec3(0.1, 0.55, 0.4)), vec3(0.19)));*/
+  }
+  
+  //-----------------------------------------------------------------------------------------------------------------------------------------
 
   helloVk.createOffscreenRender();
   helloVk.createDescriptorSetLayout();
@@ -198,7 +227,7 @@ int main(int argc, char** argv)
   glm::vec4 clearColor   = glm::vec4(1, 1, 1, 1.00f);
   bool      useRaytracer = true;
 
-  helloVk.m_pcRay.camAperture = 0.001;
+  helloVk.m_pcRay.camAperture = 0.000;
   helloVk.m_pcRay.focusDist = 3;
 
 
