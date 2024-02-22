@@ -137,6 +137,7 @@ int main(int argc, char** argv)
 
   // Creation of the example-----------------------------------------------------------------------------------------------------------------
   
+  //CornellBox Spheres
   //helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Sphere.obj", defaultSearchPaths, true));
 
   {  //Minecraft floor
@@ -171,9 +172,10 @@ int main(int argc, char** argv)
                       glm::scale(glm::rotate(glm::mat4(1.0f), (float)1.5, vec3(0, 1, 0)), vec3(0.0023)));*/
   }
 
-  /*helloVk.loadModel(nvh::findFile("media/scenes/sponza.obj", defaultSearchPaths, true));*/
+  //Sponza
+  //helloVk.loadModel(nvh::findFile("media/scenes/sponza.obj", defaultSearchPaths, true));
 
-  {  //cornell buble
+  {  //cornell bubble
      /*helloVk.loadModel(nvh::findFile("media/scenes/CornellBox-Empty-CO.obj", defaultSearchPaths, true));
 
      helloVk.loadModel(nvh::findFile("media/scenes/sphere.obj", defaultSearchPaths, true),
@@ -227,12 +229,17 @@ int main(int argc, char** argv)
   glm::vec4 clearColor   = glm::vec4(1, 1, 1, 1.00f);
   bool      useRaytracer = true;
 
-  helloVk.m_pcRay.camAperture = 0.000;
-  helloVk.m_pcRay.focusDist = 3;
+  helloVk.m_pcRay.camAperture = 0.f;
+  helloVk.m_pcRay.focusDist = 3.f;
+  helloVk.m_pcRay.shininess = 0.f;
+  helloVk.m_pcRay.fuzziness = 0.f;
 
 
   helloVk.setupGlfwCallbacks(window);
   ImGui_ImplGlfw_InitForVulkan(window, true);
+
+ 
+
 
   // Main loop
   while(!glfwWindowShouldClose(window))
@@ -254,7 +261,9 @@ int main(int argc, char** argv)
       ImGui::Checkbox("Ray Tracer mode", &useRaytracer);  // Switch between raster and ray tracing
       ImGui::Checkbox("Ambient Ligth", &helloVk.m_pcRay.ambientLigth); //enable ambient ligth
       ImGui::SliderFloat("Aperture", &helloVk.m_pcRay.camAperture, 0.001f, 0.5f); //camera parameters
-      ImGui::SliderFloat("Focus distance", &helloVk.m_pcRay.focusDist, 1.f, 20.f);
+      ImGui::SliderFloat("Focus distance", &helloVk.m_pcRay.focusDist, 0.1f, 20.f);
+      ImGui::SliderFloat("Shininess", &helloVk.m_pcRay.shininess, 0.f, 700.f);
+      ImGui::SliderFloat("Fuzziness", &helloVk.m_pcRay.fuzziness, 0.f, 1.f);
 
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
       ImGuiH::Panel::End();

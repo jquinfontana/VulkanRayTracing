@@ -925,15 +925,20 @@ void HelloVulkan::updateFrame()
 {
   static glm::mat4 refCamMatrix;
   static float     refFov{CameraManip.getFov()};
+  //imgui parameters memory
+  static float lastCamAperture;
+  static float lastFocusDist;
 
   const auto& m   = CameraManip.getMatrix();
   const auto  fov = CameraManip.getFov();
 
-  if(refCamMatrix != m || refFov != fov)
+  if(refCamMatrix != m || refFov != fov || m_pcRay.focusDist != lastFocusDist || m_pcRay.camAperture != lastCamAperture)
   {
     resetFrame();
     refCamMatrix = m;
     refFov       = fov;
+    lastCamAperture = m_pcRay.camAperture;
+    lastFocusDist = m_pcRay.focusDist;
   }
   m_pcRay.frame++;
 }

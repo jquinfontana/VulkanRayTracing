@@ -73,6 +73,8 @@ struct PushConstantRay
   int   frame;
   float camAperture;
   float focusDist;
+  float shininess;
+  float fuzziness;
   bool ambientLigth;
 };
 

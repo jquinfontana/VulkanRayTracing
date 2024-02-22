@@ -70,7 +70,7 @@ void main()
       hitValue = vec3(1);
       for(;;) {
 
-        if(prd.depth == 7) {
+        if(prd.depth == 10) {
           hitValue = vec3(0)*hitValue;
           break;
         }

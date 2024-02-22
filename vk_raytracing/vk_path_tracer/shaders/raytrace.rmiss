@@ -19,7 +19,7 @@ void main() {
 
   //iluminacion ambiental
   if(pcRay.ambientLigth){
-    prd.hitValue = vec3(1);
+    prd.hitValue = vec3(10);
   } else {
     prd.hitValue = vec3(0);
   }

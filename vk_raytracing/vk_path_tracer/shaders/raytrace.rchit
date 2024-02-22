@@ -79,16 +79,15 @@ void main() {
 
 
   if(length(mat.emission) > 0) {
-    prd.hitValue = 3*mat.emission;
+    prd.hitValue = 3*mat.emission* texColor.rgb;
     prd.done = 1;
-
   } else {
 	  float reflectProb;
     switch (mat.illum) {
     case 5: //metal
         prd.hitValue = mat.specular * texColor.rgb;
         prd.done = 0;//isScattered ? 1 : 0;
-        prd.rayDir = reflect(prd.rayDir, worldNrm) + 0.0*RandomInUnitSphere(prd.RandomSeed); //editar parametro para fuzzy material
+        prd.rayDir = reflect(prd.rayDir, worldNrm) + pcRay.fuzziness*RandomInUnitSphere(prd.RandomSeed); //editar parametro para fuzzy material
         prd.rayOrigin = worldPos;
         
         break;
@@ -104,6 +103,7 @@ void main() {
         prd.rayDir = rnd(prd.RandomSeed) < reflectProb
           ? reflect(prd.rayDir, worldNrm)
           : refracted;
+        prd.rayDir += + 0.0*RandomInUnitSphere(prd.RandomSeed);
         prd.rayOrigin = worldPos;
         
         break;
@@ -113,7 +113,7 @@ void main() {
         prd.hitValue = mat.diffuse.rgb * texColor.rgb;
         prd.done = 0;//isScattered ? 1 : 0;
         prd.rayDir = rnd(prd.RandomSeed) < reflectProb
-          ? reflect(prd.rayDir, worldNrm) + (350/mat.shininess)*RandomInUnitSphere(prd.RandomSeed)
+          ? reflect(prd.rayDir, worldNrm) + (pcRay.shininess/mat.shininess)*RandomInUnitSphere(prd.RandomSeed)
           : worldNrm + RandomInUnitSphere(prd.RandomSeed);
         prd.rayOrigin = worldPos;
     }
