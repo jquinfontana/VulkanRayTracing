@@ -4,7 +4,7 @@ vk_raytracing/nvpro_core/
 CMakeFiles/
 *.cmake
 .vs/
-*.txt
+
 
 # autogen
 vk_raytracing/vk_path_tracer/CMakeFiles/generate.stamp
