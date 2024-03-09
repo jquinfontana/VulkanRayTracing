@@ -17,13 +17,13 @@ Requisitos:
 
 La estructura deberia ser la siguiente:
 
-<img src="https://github.com/jquinfontana/VulkanRayTracing/blob/main/documentos/imagenes%20path%20tracing/estructura%20repo.png" width="25%"></img>
+<img src="https://github.com/jquinfontana/VulkanRayTracing/blob/main/documentos/imagenes%20path%20tracing/estructura%20repo.png" width="20%"></img>
 
 **Paso 2**: Ejecutar comando `cmake .` en el directorio `vk_raytracing`. Para esto se recomienda agregar Cmake al path en el momento de la instalación.
 
 La estructura de la solución deberia ser algo parecido a esto:
 
-<img src="https://github.com/jquinfontana/VulkanRayTracing/blob/main/documentos/imagenes%20path%20tracing/solucionvisual.png" width="25%"></img>
+<img src="https://github.com/jquinfontana/VulkanRayTracing/blob/main/documentos/imagenes%20path%20tracing/solucionvisual.png" width="30%"></img>
 
 # Agregar un nuevo proyecto: 
 
